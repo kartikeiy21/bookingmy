@@ -7,55 +7,56 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=pro2" />
   </head>
   <body>
-    <div class="noise"></div>
-    <main class="layout">
-      <aside class="left-rail">
-        <section class="card badge-card">
-          <p class="eyebrow">Live Booking Engine</p>
-          <h1>Stadium Seat Console</h1>
-          <p>Atomic lock and confirm flow with Redis-backed concurrency safety.</p>
-        </section>
+    <main class="app-shell">
+      <header class="topbar card">
+        <div>
+          <p class="eyebrow">Concurrent Booking Platform</p>
+          <h1>Ticket Inventory Dashboard</h1>
+          <p class="subtitle">Redis lock windows prevent double-booking during high concurrency.</p>
+        </div>
+        <div class="chip-group">
+          <span class="chip available">Available</span>
+          <span class="chip locked">Locked</span>
+          <span class="chip mine">Locked by you</span>
+          <span class="chip booked">Booked</span>
+        </div>
+      </header>
 
+      <section class="top-grid">
         <section class="card controls">
-          <label for="userId">Session User ID</label>
-          <input id="userId" type="text" placeholder="e.g. user_42" />
+          <div class="field-row">
+            <label for="userId">User ID</label>
+            <input id="userId" type="text" placeholder="e.g. user_42" />
+          </div>
 
           <div class="actions">
             <button id="lockBtn">Lock Seats</button>
-            <button id="confirmBtn" class="secondary">Confirm</button>
-            <button id="releaseBtn" class="ghost">Release</button>
+            <button id="confirmBtn" class="secondary">Confirm Booking</button>
+            <button id="releaseBtn" class="ghost">Release Locks</button>
           </div>
 
           <p id="message" class="message"></p>
         </section>
 
         <section class="card stats" id="stats"></section>
-      </aside>
+      </section>
 
-      <section class="right-stage">
-        <div class="stage-top">
-          <div class="pill available">Available</div>
-          <div class="pill locked">Locked</div>
-          <div class="pill mine">Locked by you</div>
-          <div class="pill booked">Booked</div>
+      <section class="card seat-card">
+        <div class="seat-head">
+          <div>
+            <h2>Seat Map</h2>
+            <p>Select seats, lock them, then confirm purchase.</p>
+          </div>
+          <div class="stage-pill">EVENT STAGE</div>
         </div>
 
-        <section class="card seat-board">
-          <div class="board-head">
-            <h2>Seat Map</h2>
-            <p>Select available seats, then lock and confirm.</p>
-          </div>
-
-          <div class="screen">EVENT STAGE</div>
-
-          <div id="seatGrid" class="seat-grid"></div>
-        </section>
+        <div id="seatGrid" class="seat-grid"></div>
       </section>
     </main>
 

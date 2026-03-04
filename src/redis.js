@@ -12,11 +12,22 @@ redis.on('error', (err) => {
 });
 
 let connected = false;
+let connectPromise = null;
 
 async function ensureRedisConnected() {
   if (connected) return;
-  await redis.connect();
-  connected = true;
+  if (!connectPromise) {
+    connectPromise = redis
+      .connect()
+      .then(() => {
+        connected = true;
+      })
+      .catch((err) => {
+        connectPromise = null;
+        throw err;
+      });
+  }
+  await connectPromise;
 }
 
 module.exports = { redis, ensureRedisConnected };

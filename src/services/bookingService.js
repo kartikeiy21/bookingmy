@@ -1,10 +1,14 @@
-const { nanoid } = require('nanoid');
+const crypto = require('crypto');
 const { config } = require('../config');
 const { redis, ensureRedisConnected } = require('../redis');
 const { LOCK_SCRIPT, CONFIRM_SCRIPT, RELEASE_SCRIPT } = require('../scripts');
 
 const EVENT_KEY = 'event:seats';
 const LOCK_PREFIX = 'event:lock:seat:';
+
+function createId(prefix) {
+  return `${prefix}_${crypto.randomBytes(6).toString('hex')}`;
+}
 
 function buildSeatIds(totalSeats) {
   return Array.from({ length: totalSeats }, (_, i) => `S${String(i + 1).padStart(3, '0')}`);
@@ -65,7 +69,7 @@ async function lockSeats({ userId, seatIds }) {
     ok: true,
     status: 200,
     data: {
-      lockId: `lock_${nanoid(12)}`,
+      lockId: createId('lock'),
       lockedSeats: seatIds,
       expiresInSeconds: config.lockTtlSeconds
     }
@@ -93,7 +97,7 @@ async function confirmSeats({ userId, seatIds }) {
     ok: true,
     status: 200,
     data: {
-      bookingId: `bk_${nanoid(12)}`,
+      bookingId: createId('bk'),
       bookedSeats: seatIds,
       remainingAvailable
     }

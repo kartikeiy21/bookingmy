@@ -1,0 +1,27 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 20
+      arrivalRate: 20
+    - duration: 30
+      arrivalRate: 50
+  processor: "./processor.js"
+
+scenarios:
+  - name: "Concurrent lock + confirm"
+    flow:
+      - function: "setUser"
+      - function: "pickSeat"
+      - post:
+          url: "/api/lock"
+          json:
+            userId: "{{ userId }}"
+            seatIds:
+              - "{{ seatId }}"
+      - think: 1
+      - post:
+          url: "/api/confirm"
+          json:
+            userId: "{{ userId }}"
+            seatIds:
+              - "{{ seatId }}"

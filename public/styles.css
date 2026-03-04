@@ -1,0 +1,240 @@
+:root {
+  --bg: #0a1118;
+  --panel: rgba(13, 27, 39, 0.82);
+  --line: rgba(128, 196, 255, 0.25);
+  --text: #eaf4ff;
+  --muted: #9ec0dc;
+  --available: #2dd4bf;
+  --locked: #f59e0b;
+  --mine: #60a5fa;
+  --booked: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.16), transparent 42%),
+    radial-gradient(circle at bottom left, rgba(45, 212, 191, 0.12), transparent 50%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.orb-a {
+  width: 260px;
+  height: 260px;
+  background: #0ea5e9;
+  top: -80px;
+  right: -60px;
+}
+
+.orb-b {
+  width: 220px;
+  height: 220px;
+  background: #14b8a6;
+  bottom: -70px;
+  left: -20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 16px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  margin: 8px 0;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.kicker {
+  margin: 0;
+  color: #60a5fa;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(6px);
+  margin-bottom: 14px;
+}
+
+.controls label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(190, 220, 255, 0.25);
+  background: rgba(8, 16, 24, 0.8);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+  color: #02111e;
+  font-weight: 700;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: linear-gradient(90deg, #2dd4bf, #5eead4);
+}
+
+button.ghost {
+  background: rgba(113, 170, 214, 0.2);
+  color: var(--text);
+  border: 1px solid rgba(158, 192, 220, 0.35);
+}
+
+.message {
+  min-height: 20px;
+  color: #7dd3fc;
+  margin-bottom: 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.stat-card {
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 10px;
+  padding: 12px;
+  background: rgba(4, 11, 18, 0.45);
+}
+
+.stat-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.stat-card strong {
+  font-size: 1.35rem;
+}
+
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.dot.available {
+  background: var(--available);
+}
+
+.dot.locked {
+  background: var(--locked);
+}
+
+.dot.mine {
+  background: var(--mine);
+}
+
+.dot.booked {
+  background: var(--booked);
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
+  gap: 8px;
+}
+
+.seat {
+  border: 1px solid rgba(190, 220, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  background: rgba(3, 10, 15, 0.65);
+  color: var(--text);
+}
+
+.seat.available {
+  border-color: rgba(45, 212, 191, 0.45);
+}
+
+.seat.available.selected {
+  outline: 2px solid #2dd4bf;
+  background: rgba(45, 212, 191, 0.18);
+}
+
+.seat.locked {
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #fcd34d;
+}
+
+.seat.mine {
+  border-color: rgba(96, 165, 250, 0.75);
+  color: #93c5fd;
+}
+
+.seat.booked {
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: 20px 12px 30px;
+  }
+
+  .actions button {
+    flex: 1;
+  }
+}

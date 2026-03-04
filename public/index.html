@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Concurrent Ticket Booking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <main class="container">
+      <header class="hero">
+        <p class="kicker">Redis-backed Seat Locking</p>
+        <h1>Concurrent Ticket Booking</h1>
+        <p class="subtitle">Lock seats for 30 seconds, then confirm booking atomically.</p>
+      </header>
+
+      <section class="panel controls">
+        <label for="userId">User ID</label>
+        <input id="userId" type="text" placeholder="e.g. user_42" />
+
+        <div class="actions">
+          <button id="lockBtn">Lock Selected Seats</button>
+          <button id="confirmBtn" class="secondary">Confirm Booking</button>
+          <button id="releaseBtn" class="ghost">Release Locks</button>
+        </div>
+
+        <p id="message" class="message"></p>
+      </section>
+
+      <section class="panel stats" id="stats"></section>
+
+      <section class="panel">
+        <div class="legend">
+          <span><i class="dot available"></i> Available</span>
+          <span><i class="dot locked"></i> Locked</span>
+          <span><i class="dot mine"></i> Locked by you</span>
+          <span><i class="dot booked"></i> Booked</span>
+        </div>
+        <div id="seatGrid" class="seat-grid"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

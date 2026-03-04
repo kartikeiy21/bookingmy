@@ -13,7 +13,7 @@ userIdInput.value = state.userId;
 
 function setMessage(text, isError = false) {
   messageNode.textContent = text;
-  messageNode.style.color = isError ? '#fca5a5' : '#7dd3fc';
+  messageNode.style.color = isError ? '#fca5a5' : '#bef264';
 }
 
 function selectedSeatIds() {
@@ -30,6 +30,7 @@ function drawStats(summary) {
 }
 
 function seatClass(seat) {
+  if (seat.offline) return 'offline';
   if (seat.state === 'booked') return 'booked';
   if (seat.lock?.lockedBy === userIdInput.value.trim()) return 'mine';
   if (seat.lock) return 'locked';
@@ -51,7 +52,8 @@ function drawSeats() {
     const ttlText = seat.lock?.ttlSeconds > 0 ? ` (${seat.lock.ttlSeconds}s)` : '';
     button.textContent = `${seat.seatId}${ttlText}`;
 
-    const isUnavailable = className === 'booked' || className === 'locked' || className === 'mine';
+    const isUnavailable =
+      className === 'booked' || className === 'locked' || className === 'mine' || className === 'offline';
     if (!isUnavailable || isSelected) {
       button.addEventListener('click', () => {
         if (state.selected.has(seat.seatId)) {
@@ -70,16 +72,53 @@ function drawSeats() {
 }
 
 async function callApi(path, method, body) {
-  const res = await fetch(path, {
+  const options = {
     method,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  const data = await res.json();
-  if (!res.ok || data.success === false) {
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  if (body !== undefined) {
+    options.body = JSON.stringify(body);
+  }
+
+  const res = await fetch(path, options);
+  const text = await res.text();
+
+  let data = null;
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch (_err) {
+      data = null;
+    }
+  }
+
+  if (!res.ok) {
+    const cleaned = text ? text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140) : '';
+    throw new Error((data && data.error) || cleaned || `Request failed with status ${res.status}`);
+  }
+
+  if (!data) {
+    throw new Error('Server returned a non-JSON response.');
+  }
+
+  if (data.success === false) {
     throw new Error(data.error || 'Request failed');
   }
+
   return data;
+}
+
+function renderOfflineSeatMap(total = 60) {
+  state.seats = Array.from({ length: total }, (_, idx) => ({
+    seatId: `S${String(idx + 1).padStart(3, '0')}`,
+    state: 'available',
+    lock: null,
+    offline: true
+  }));
+
+  drawStats({ total, available: 0, locked: 0, booked: 0 });
+  drawSeats();
 }
 
 async function refreshSeats() {
@@ -100,7 +139,8 @@ async function refreshSeats() {
     drawStats(data.summary);
     drawSeats();
   } catch (err) {
-    setMessage(err.message, true);
+    setMessage(`Backend error: ${err.message}`, true);
+    renderOfflineSeatMap();
   }
 }
 

@@ -1,12 +1,12 @@
 :root {
-  --bg: #0a1118;
-  --panel: rgba(13, 27, 39, 0.82);
-  --line: rgba(128, 196, 255, 0.25);
-  --text: #eaf4ff;
-  --muted: #9ec0dc;
-  --available: #2dd4bf;
-  --locked: #f59e0b;
-  --mine: #60a5fa;
+  --bg: #11150d;
+  --panel: rgba(27, 36, 20, 0.86);
+  --line: rgba(166, 196, 72, 0.35);
+  --text: #f6f7e8;
+  --muted: #d7dbb1;
+  --available: #59d646;
+  --locked: #facc15;
+  --mine: #f97316;
   --booked: #ef4444;
 }
 
@@ -19,8 +19,9 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.16), transparent 42%),
-    radial-gradient(circle at bottom left, rgba(45, 212, 191, 0.12), transparent 50%),
+    radial-gradient(circle at top right, rgba(89, 214, 70, 0.2), transparent 45%),
+    radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.18), transparent 50%),
+    radial-gradient(circle at top left, rgba(250, 204, 21, 0.1), transparent 38%),
     var(--bg);
   min-height: 100vh;
 }
@@ -29,14 +30,14 @@ body {
   position: fixed;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.35;
+  opacity: 0.3;
   pointer-events: none;
 }
 
 .orb-a {
   width: 260px;
   height: 260px;
-  background: #0ea5e9;
+  background: #84cc16;
   top: -80px;
   right: -60px;
 }
@@ -44,7 +45,7 @@ body {
 .orb-b {
   width: 220px;
   height: 220px;
-  background: #14b8a6;
+  background: #f59e0b;
   bottom: -70px;
   left: -20px;
 }
@@ -64,7 +65,7 @@ body {
 
 .kicker {
   margin: 0;
-  color: #60a5fa;
+  color: #bef264;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.78rem;
@@ -94,8 +95,8 @@ input {
   width: 100%;
   padding: 10px 12px;
   border-radius: 10px;
-  border: 1px solid rgba(190, 220, 255, 0.25);
-  background: rgba(8, 16, 24, 0.8);
+  border: 1px solid rgba(190, 242, 100, 0.3);
+  background: rgba(15, 20, 11, 0.95);
   color: var(--text);
   font-family: 'Space Mono', monospace;
 }
@@ -110,26 +111,26 @@ input {
 button {
   border: 0;
   border-radius: 10px;
-  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
-  color: #02111e;
+  background: linear-gradient(90deg, #65a30d, #84cc16);
+  color: #122008;
   font-weight: 700;
   padding: 10px 14px;
   cursor: pointer;
 }
 
 button.secondary {
-  background: linear-gradient(90deg, #2dd4bf, #5eead4);
+  background: linear-gradient(90deg, #facc15, #eab308);
+  color: #2a1f00;
 }
 
 button.ghost {
-  background: rgba(113, 170, 214, 0.2);
-  color: var(--text);
-  border: 1px solid rgba(158, 192, 220, 0.35);
+  background: linear-gradient(90deg, #f97316, #fb923c);
+  color: #2a1300;
 }
 
 .message {
   min-height: 20px;
-  color: #7dd3fc;
+  color: #bef264;
   margin-bottom: 0;
 }
 
@@ -140,10 +141,10 @@ button.ghost {
 }
 
 .stat-card {
-  border: 1px solid rgba(125, 211, 252, 0.2);
+  border: 1px solid rgba(166, 196, 72, 0.45);
   border-radius: 10px;
   padding: 12px;
-  background: rgba(4, 11, 18, 0.45);
+  background: rgba(21, 28, 15, 0.7);
 }
 
 .stat-card span {
@@ -192,41 +193,49 @@ button.ghost {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
   gap: 8px;
+  min-height: 120px;
 }
 
 .seat {
-  border: 1px solid rgba(190, 220, 255, 0.3);
+  border: 1px solid rgba(190, 242, 100, 0.35);
   border-radius: 10px;
   padding: 10px 6px;
   text-align: center;
   font-family: 'Space Mono', monospace;
   font-size: 0.78rem;
-  background: rgba(3, 10, 15, 0.65);
+  background: rgba(18, 24, 13, 0.95);
   color: var(--text);
 }
 
 .seat.available {
-  border-color: rgba(45, 212, 191, 0.45);
+  border-color: rgba(89, 214, 70, 0.7);
+  color: #d9f99d;
 }
 
 .seat.available.selected {
-  outline: 2px solid #2dd4bf;
-  background: rgba(45, 212, 191, 0.18);
+  outline: 2px solid #84cc16;
+  background: rgba(101, 163, 13, 0.33);
 }
 
 .seat.locked {
-  border-color: rgba(245, 158, 11, 0.5);
-  color: #fcd34d;
+  border-color: rgba(250, 204, 21, 0.8);
+  color: #fde047;
 }
 
 .seat.mine {
-  border-color: rgba(96, 165, 250, 0.75);
-  color: #93c5fd;
+  border-color: rgba(249, 115, 22, 0.85);
+  color: #fdba74;
 }
 
 .seat.booked {
-  border-color: rgba(239, 68, 68, 0.5);
+  border-color: rgba(239, 68, 68, 0.8);
   color: #fca5a5;
+}
+
+.seat.offline {
+  border-color: rgba(215, 219, 177, 0.35);
+  color: #c2c8a0;
+  background: rgba(22, 25, 18, 0.8);
 }
 
 @media (max-width: 700px) {

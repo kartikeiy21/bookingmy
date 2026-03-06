@@ -18,7 +18,7 @@
 
 body {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--text);
   background:
     radial-gradient(900px 550px at 8% 92%, rgba(22, 163, 74, 0.1), transparent 48%),
